@@ -1,0 +1,54 @@
+version: "3.8"
+
+services:
+  folioblog_database:
+    image: mariadb:lts-jammy
+    container_name: folioblog_database
+    restart: always
+    volumes:
+      - ./database:/var/lib/mysql
+    environment:
+      MARIADB_ROOT_PASSWORD : root
+    networks:
+      - dev
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: folioblog_phpmyadmin
+    restart: always
+    depends_on:
+      - folioblog_database
+    ports:
+      - 8080:80
+    environment:
+      PMA_HOST: folioblog_database
+    networks:
+      - dev
+
+  folioblog_maildev:
+    image: maildev/maildev:latest
+    container_name: folioblog_maildev
+    restart: always
+    command: bin/maildev --web 80 --smtp 25 --hide-extensions STARTTLS
+    ports:
+      - 8081:80
+    networks:
+      - dev
+
+  folioblog_www:
+    build: docker
+    container_name: folioblog_www
+    restart: always
+    volumes:
+      - ./docker/vhosts:/etc/apache2/sites-enabled
+      - ./:/var/www/
+    ports:
+      - 8001:80
+    networks:
+      - dev
+
+networks:
+  dev:
+
+volumes:
+  database:
