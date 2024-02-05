@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Entity\Posts;
 use App\Entity\Projects;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Metadata\ApiResource;
 use App\Repository\CategorysRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -13,6 +14,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: CategorysRepository::class)]
 #[Vich\Uploadable]
+#[ApiResource]
 class Categorys
 {
     use Traits\nameTrait;

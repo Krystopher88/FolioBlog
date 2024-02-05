@@ -6,6 +6,7 @@ use App\Entity\Comments;
 use App\Entity\Categorys;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\PostsRepository;
+use ApiPlatform\Metadata\ApiResource;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
@@ -13,6 +14,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: PostsRepository::class)]
 #[Vich\Uploadable]
+#[ApiResource]
 class Posts
 {
     use Traits\nameTrait;

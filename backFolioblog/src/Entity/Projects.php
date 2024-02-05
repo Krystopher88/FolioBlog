@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Entity\Comments;
 use App\Entity\Categorys;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Metadata\ApiResource;
 use App\Repository\ProjectsRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -13,6 +14,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: ProjectsRepository::class)]
 #[Vich\Uploadable]
+#[ApiResource]
 class Projects
 {
     use Traits\nameTrait;

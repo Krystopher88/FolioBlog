@@ -2,6 +2,12 @@ FROM php:8.2-apache
 
 RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
+RUN useradd -m -u 1000 krystdev \
+    && usermod -a -G www-data krystdev \
+    && usermod -a -G krystdev www-data
+
+RUN chown -R krystdev:www-data /var/www
+
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
         locales apt-utils git libicu-dev g++ libpng-dev libxml2-dev libzip-dev libonig-dev libxslt-dev unzip \
